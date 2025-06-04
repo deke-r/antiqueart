@@ -2,26 +2,7 @@ export default function Footer() {
   return (
     <footer style={{ backgroundColor: "#eef1f6" }}>
       {/* CTA Section */}
-      <div className="py-5">
-        <div className="container">
-          <div className="bg-white rounded-4 p-5 mb-5">
-            <div className="row align-items-center">
-              <div className="col-lg-8 mb-3 mb-lg-0">
-                <h3 className="fw-bold mb-3" style={{ color: "#150e4b" }}>
-                  Want More Special Gift Ideas?
-                </h3>
-                <p className="text-muted mb-0">
-                  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                  industry's standard dummy text ever since the 1500s,
-                </p>
-              </div>
-              <div className="col-lg-4 text-lg-end">
-                <button className="btn btn-primary rounded-pill px-4 py-3">Subscribe To Our Newsletter</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+
 
       {/* Footer Content */}
       <div className="py-4">

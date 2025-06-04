@@ -1,15 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
 
-
 :root {
   --bs-primary: #150e4b;
   --bs-primary-rgb: 21, 14, 75;
-  --primary-color:#fa2947
+  --primary-color: #fa2947;
 }
 
 body {
-  font-family:'Poppins', sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
 
 * {
@@ -37,7 +36,6 @@ body {
   background: linear-gradient(90deg, #fa2947 0%, #ed6c71 100%);
   color: white;
   border: none !important;
-
 }
 
 .text-primary {
@@ -64,6 +62,31 @@ body {
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
 }
 
+.product-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.product-overlay {
+  background: rgba(21, 14, 75, 0.8);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.product-card:hover .product-overlay {
+  opacity: 1;
+}
+
+.list-group-item.active {
+  background: linear-gradient(90deg, #fa2947 0%, #ed6c71 100%);
+  border-color: transparent;
+}
+
+.form-range::-webkit-slider-thumb,
+.form-range::-moz-range-thumb {
+  background: linear-gradient(90deg, #fa2947 0%, #ed6c71 100%);
+}
+
 .min-vh-50 {
   min-height: 50vh;
 }
@@ -72,12 +95,10 @@ body {
   .display-4 {
     font-size: 2rem;
   }
-
   .lead {
     font-size: 1rem;
   }
 }
-
 
 ::-webkit-scrollbar {
   width: 10px;
@@ -97,11 +118,10 @@ body {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: var(--text-color);
+  background-color: rgb(var(--bs-primary-rgb));
 }
 
-
-a{
+a {
   text-decoration: none !important;
 }
 
@@ -157,11 +177,11 @@ a{
   background-color: white;
 }
 
-.box_sdw{
+.box_sdw {
   box-shadow: 0px 20px 50px 0px rgba(250, 41, 71, 0.3) !important;
 }
 
-.hero-section{
+.hero-section {
   background-image: url('/img/e77185cf-bg-image.webp');
   background-position: center;
   background-repeat: no-repeat;
