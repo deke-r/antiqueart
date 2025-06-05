@@ -2,9 +2,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
 
 :root {
-  --bs-primary: #150e4b;
+  --bs-primaryy: #292929;
   --bs-primary-rgb: 21, 14, 75;
-  --primary-color: #fa2947;
+
+  --primary-color: #292929;
+  --gradient-dark: linear-gradient(to right top, #292929, #2d2d2d, #323232, #363636, #3b3b3b);
+  --gradient-dark-hover: linear-gradient(to right top, #3a3a3a, #3f3f3f, #444444, #484848, #4d4d4d);
+  --gradient-red: linear-gradient(90deg, #fa2947 0%, #ed6c71 100%);
+  --gradient-red-hover: linear-gradient(90deg, #e91e3a 0%, #dc5a5f 100%);
+  --bs-red:#fa2947;
 }
 
 body {
@@ -15,31 +21,53 @@ body {
   font-family: inherit;
 }
 
+.text-default{
+  color:var(--bs-primaryy) !important;
+}
+.text-primary{
+  color:var(--bs-primaryy) !important;
+}
+.text-red{
+  color:var(--bs-red) !important;
+}
+
 .btn-primary {
-  background: linear-gradient(90deg, #fa2947 0%, #ed6c71 100%);
+  background: var(--gradient-dark) !important;
   border: none;
   color: white;
 }
 
 .btn-primary:hover {
-  background: linear-gradient(90deg, #e91e3a 0%, #dc5a5f 100%);
+  background: var(--gradient-dark-hover);
   border: none;
 }
 
 .btn-outline-primary {
   border: 2px solid transparent;
-  background: linear-gradient(white, white) padding-box, linear-gradient(90deg, #fa2947 0%, #ed6c71 100%) border-box;
-  color: #150e4b;
+  background: linear-gradient(white, white) padding-box, var(--gradient-red) border-box;
+  color: var(--bs-primaryy);
 }
 
 .btn-outline-primary:hover {
-  background: linear-gradient(90deg, #fa2947 0%, #ed6c71 100%);
+  background: var(--gradient-dark-hover) !important;
   color: white;
   border: none !important;
 }
 
+.btn:hover{
+  background: var(--gradient-dark-hover) !important;
+}
+
 .text-primary {
-  color: #150e4b !important;
+  background: var(--gradient-dark);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-default {
+  background: var(--gradient-dark);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .nav-link {
@@ -50,7 +78,7 @@ body {
 
 .nav-link:hover,
 .nav-link.active {
-  color: #150e4b !important;
+  color: var(--bs-primaryy) !important;
 }
 
 .card {
@@ -78,13 +106,13 @@ body {
 }
 
 .list-group-item.active {
-  background: linear-gradient(90deg, #fa2947 0%, #ed6c71 100%);
+  background: var(--gradient-red);
   border-color: transparent;
 }
 
 .form-range::-webkit-slider-thumb,
 .form-range::-moz-range-thumb {
-  background: linear-gradient(90deg, #fa2947 0%, #ed6c71 100%);
+  background: var(--gradient-red);
 }
 
 .min-vh-50 {
@@ -125,6 +153,7 @@ a {
   text-decoration: none !important;
 }
 
+/* Responsive Font Sizes */
 .f_8 { font-size: clamp(6px, 0.5vw, 8px) !important; }
 .f_9 { font-size: clamp(7px, 0.6vw, 9px) !important; }
 .f_10 { font-size: clamp(8px, 0.7vw, 10px) !important; }
@@ -169,20 +198,22 @@ a {
 .f_49 { font-size: clamp(47px, 3.4vw, 49px) !important; }
 .f_50 { font-size: clamp(48px, 3.5vw, 50px) !important; }
 
+/* Hover Card */
 .hv-crd {
   transition: background-color 0.6s ease-in-out;
 }
-
 .hv-crd:hover {
   background-color: white;
 }
 
+/* Box Shadow */
 .box_sdw {
   box-shadow: 0px 20px 50px 0px rgba(250, 41, 71, 0.3) !important;
 }
 
+/* Hero Section */
 .hero-section {
-  background-image: url('/img/e77185cf-bg-image.webp');
+  background-image: url('/img/PhotoReal_modern_grey_kitchen_cabinets_grey_modern_kitchen_cab_2.webp');
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;

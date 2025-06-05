@@ -1,6 +1,6 @@
 import Header from "@/components/Header"
 import HeroSection from "@/components/HeroSection"
-import GiftFinder from "@/components/GiftFinder"
+import DesignConsultationCTA from "@/components/DesignConsultationCTA"
 import ProductCategories from "@/components/ProductCategories"
 import PopularProducts from "@/components/PopularProducts"
 import ServicesSection from "@/components/ServicesSection"
@@ -15,13 +15,13 @@ export default function Page() {
   return (
     <>
   <HeroSection />
-         <GiftFinder />
+         <DesignConsultationCTA />
          <ProductCategories />
          <PopularProducts />
          <ServicesSection />
          <AboutSection />
          <HowItWorks />
-         <SubscribeSection/>
+    
     </>
   );
 }

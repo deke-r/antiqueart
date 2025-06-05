@@ -1,18 +1,34 @@
-import '../styles/footer.css';
+'use client'
+
+import {
+  Facebook,
+  Twitter,
+  Instagram,
+  Linkedin,
+  Youtube
+} from 'lucide-react';
+
+import '../styles/footer.css'
+import { motion } from 'framer-motion'
 
 export default function Footer() {
   return (
     <footer className="elegift-footer">
       {/* Newsletter Section */}
-      <div className="newsletter-section">
+      <motion.div
+        className="newsletter-section"
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        viewport={{ once: true }}
+      >
         <div className="container">
           <div className="newsletter-card">
             <div className="row align-items-center">
               <div className="col-lg-8 mb-3 mb-lg-0">
-                <h3 className="newsletter-title">Want More Special Gift Ideas?</h3>
+                <h3 className="newsletter-title">Want Interior Tips & Offers?</h3>
                 <p className="newsletter-text">
-                  Subscribe to our newsletter and get exclusive offers, gift ideas, and updates on new arrivals. Be the
-                  first to know about our special promotions and seasonal collections.
+                  Subscribe to our newsletter to get exclusive interior design tips, latest furniture trends, and special offers on premium home decor collections.
                 </p>
               </div>
               <div className="col-lg-4">
@@ -32,242 +48,136 @@ export default function Footer() {
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
 
       {/* Main Footer Content */}
       <div className="footer-main">
         <div className="container">
           <div className="row">
             {/* About Us Column */}
-            <div className="col-lg-3 col-md-6 mb-4">
+            <motion.div
+              className="col-lg-3 col-md-6 mb-4"
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5 }}
+              viewport={{ once: true }}
+            >
               <div className="footer-widget">
-                <img src="/placeholder.svg?height=51&width=164" alt="EleGift Logo" className="footer-logo mb-3" />
+                <img src="/placeholder.svg?height=51&width=164" alt="Interior Logo" className="footer-logo mb-3" />
                 <p className="footer-description">
-                  EleGift is your one-stop destination for thoughtful gifts that bring joy to your loved ones. We curate
-                  the finest collection of gifts for every occasion and celebration.
+                  We specialize in crafting modern, elegant furniture and interior solutions that bring comfort and style to your home and workspace.
                 </p>
                 <div className="footer-social">
                   <h6 className="footer-widget-title">Follow Us</h6>
-                  <div className="social-links">
-                    <a href="#" className="social-link facebook">
-                      <i className="fab fa-facebook-f"></i>
-                    </a>
-                    <a href="#" className="social-link twitter">
-                      <i className="fab fa-twitter"></i>
-                    </a>
-                    <a href="#" className="social-link instagram">
-                      <i className="fab fa-instagram"></i>
-                    </a>
-                    <a href="#" className="social-link linkedin">
-                      <i className="fab fa-linkedin-in"></i>
-                    </a>
-                    <a href="#" className="social-link youtube">
-                      <i className="fab fa-youtube"></i>
-                    </a>
+                  <div className="social-links d-flex gap-2">
+                    <a href="#" className="social-link"><Facebook size={20} /></a>
+                    <a href="#" className="social-link"><Twitter size={20} /></a>
+                    <a href="#" className="social-link"><Instagram size={20} /></a>
+                    <a href="#" className="social-link"><Linkedin size={20} /></a>
+                    <a href="#" className="social-link"><Youtube size={20} /></a>
                   </div>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
-            {/* Quick Links Column */}
-            <div className="col-lg-2 col-md-6 mb-4">
+            {/* Quick Links */}
+            <motion.div
+              className="col-lg-2 col-md-6 mb-4"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              viewport={{ once: true }}
+            >
               <div className="footer-widget">
                 <h6 className="footer-widget-title">Quick Links</h6>
                 <ul className="footer-links">
-                  <li>
-                    <a href="/">Home</a>
-                  </li>
-                  <li>
-                    <a href="/products">All Products</a>
-                  </li>
-                  <li>
-                    <a href="/categories/birthday">Birthday Gifts</a>
-                  </li>
-                  <li>
-                    <a href="/categories/anniversary">Anniversary</a>
-                  </li>
-                  <li>
-                    <a href="/categories/special">Special Gifts</a>
-                  </li>
-                  <li>
-                    <a href="/about">About Us</a>
-                  </li>
-                  <li>
-                    <a href="/blog">Blog</a>
-                  </li>
+                  <li><a href="/">Home</a></li>
+                  <li><a href="/furniture">Furniture</a></li>
+                  <li><a href="/interior-design">Interior Design</a></li>
+                  <li><a href="/modular-kitchen">Modular Kitchen</a></li>
+                  <li><a href="/living-room">Living Room</a></li>
+                  <li><a href="/about">About Us</a></li>
+                  <li><a href="/blog">Blog</a></li>
                 </ul>
               </div>
-            </div>
+            </motion.div>
 
-            {/* Customer Service Column */}
-            <div className="col-lg-2 col-md-6 mb-4">
+            {/* Services */}
+            <motion.div
+              className="col-lg-2 col-md-6 mb-4"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              viewport={{ once: true }}
+            >
               <div className="footer-widget">
-                <h6 className="footer-widget-title">Customer Service</h6>
+                <h6 className="footer-widget-title">Our Services</h6>
                 <ul className="footer-links">
-                  <li>
-                    <a href="/contact">Contact Us</a>
-                  </li>
-                  <li>
-                    <a href="/faq">FAQ</a>
-                  </li>
-                  <li>
-                    <a href="/shipping">Shipping Info</a>
-                  </li>
-                  <li>
-                    <a href="/returns">Returns & Exchanges</a>
-                  </li>
-                  <li>
-                    <a href="/size-guide">Size Guide</a>
-                  </li>
-                  <li>
-                    <a href="/track-order">Track Your Order</a>
-                  </li>
-                  <li>
-                    <a href="/support">Support Center</a>
-                  </li>
+                  <li><a href="/interior-design">Residential Interiors</a></li>
+                  <li><a href="/commercial-design">Commercial Spaces</a></li>
+                  <li><a href="/custom-furniture">Custom Furniture</a></li>
+                  <li><a href="/renovation">Home Renovation</a></li>
+                  <li><a href="/consultation">Design Consultation</a></li>
                 </ul>
               </div>
-            </div>
+            </motion.div>
 
-            {/* My Account Column */}
-            <div className="col-lg-2 col-md-6 mb-4">
+            {/* My Account */}
+            <motion.div
+              className="col-lg-2 col-md-6 mb-4"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4 }}
+              viewport={{ once: true }}
+            >
               <div className="footer-widget">
                 <h6 className="footer-widget-title">My Account</h6>
                 <ul className="footer-links">
-                  <li>
-                    <a href="/profile">My Profile</a>
-                  </li>
-                  <li>
-                    <a href="/orders">Order History</a>
-                  </li>
-                  <li>
-                    <a href="/wishlist">Wishlist</a>
-                  </li>
-                  <li>
-                    <a href="/cart">Shopping Cart</a>
-                  </li>
-                  <li>
-                    <a href="/addresses">My Addresses</a>
-                  </li>
-                  <li>
-                    <a href="/rewards">Rewards Program</a>
-                  </li>
-                  <li>
-                    <a href="/gift-cards">Gift Cards</a>
-                  </li>
+                  <li><a href="/profile">My Profile</a></li>
+                  <li><a href="/orders">Orders</a></li>
+                  <li><a href="/wishlist">Wishlist</a></li>
+                  <li><a href="/cart">Cart</a></li>
+                  <li><a href="/addresses">Addresses</a></li>
                 </ul>
               </div>
-            </div>
+            </motion.div>
 
-            {/* Contact Info Column */}
-            <div className="col-lg-3 col-md-6 mb-4">
+            {/* Contact Info */}
+            <motion.div
+              className="col-lg-3 col-md-6 mb-4"
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.5 }}
+              viewport={{ once: true }}
+            >
               <div className="footer-widget">
-                <h6 className="footer-widget-title">Get In Touch</h6>
+                <h6 className="footer-widget-title">Contact Us</h6>
                 <div className="contact-info">
-                  <div className="contact-item">
-                    <i className="fas fa-map-marker-alt contact-icon"></i>
-                    <div className="contact-details">
-                      <strong>Address:</strong>
-                      <br />
-                      123 Gift Street, Suite 456
-                      <br />
-                      New York, NY 10001
-                    </div>
-                  </div>
                   <div className="contact-item">
                     <i className="fas fa-phone contact-icon"></i>
                     <div className="contact-details">
-                      <strong>Phone:</strong>
-                      <br />
-                      +1 (555) 123-4567
-                      <br />
-                      +1 (555) 987-6543
+                      <strong>Customer Support</strong><br />
+                      +91-9319412021
+                    </div>
+                  </div>
+                  <div className="contact-item">
+                    <i className="fas fa-map-marker-alt contact-icon"></i>
+                    <div className="contact-details">
+                      <strong>Showroom</strong><br />
+                      17, Block A, Sector 4,<br />
+                      Noida, Uttar Pradesh 201301
                     </div>
                   </div>
                   <div className="contact-item">
                     <i className="fas fa-envelope contact-icon"></i>
                     <div className="contact-details">
-                      <strong>Email:</strong>
-                      <br />
-                      info@elegift.com
-                      <br />
-                      support@elegift.com
-                    </div>
-                  </div>
-                  <div className="contact-item">
-                    <i className="fas fa-clock contact-icon"></i>
-                    <div className="contact-details">
-                      <strong>Business Hours:</strong>
-                      <br />
-                      Mon - Fri: 9:00 AM - 6:00 PM
-                      <br />
-                      Sat - Sun: 10:00 AM - 4:00 PM
+                      <strong>Email:</strong><br />
+                      info@senseproject.in
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Payment Methods Section */}
-      <div className="payment-section">
-        <div className="container">
-          <div className="row align-items-center">
-            <div className="col-md-6 mb-3 mb-md-0">
-              <h6 className="payment-title">We Accept</h6>
-              <div className="payment-methods">
-                <img src="/placeholder.svg?height=30&width=50" alt="Visa" className="payment-method" />
-                <img src="/placeholder.svg?height=30&width=50" alt="Mastercard" className="payment-method" />
-                <img src="/placeholder.svg?height=30&width=50" alt="American Express" className="payment-method" />
-                <img src="/placeholder.svg?height=30&width=50" alt="PayPal" className="payment-method" />
-                <img src="/placeholder.svg?height=30&width=50" alt="Apple Pay" className="payment-method" />
-                <img src="/placeholder.svg?height=30&width=50" alt="Google Pay" className="payment-method" />
-              </div>
-            </div>
-            <div className="col-md-6 text-md-end">
-              <div className="security-badges">
-                <img src="/placeholder.svg?height=40&width=80" alt="SSL Secure" className="security-badge" />
-                <img src="/placeholder.svg?height=40&width=80" alt="Money Back Guarantee" className="security-badge" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Copyright Section */}
-      <div className="footer-bottom">
-        <div className="container">
-          <div className="row align-items-center">
-            <div className="col-md-6 mb-2 mb-md-0">
-              <p className="copyright-text">
-                © 2024 EleGift. All rights reserved. |
-                <a href="/privacy" className="footer-link">
-                  {" "}
-                  Privacy Policy
-                </a>{" "}
-                |
-                <a href="/terms" className="footer-link">
-                  {" "}
-                  Terms of Service
-                </a>{" "}
-                |
-                <a href="/cookies" className="footer-link">
-                  {" "}
-                  Cookie Policy
-                </a>
-              </p>
-            </div>
-            <div className="col-md-6 text-md-end">
-              <p className="powered-by">
-                Powered by{" "}
-                <a href="#" className="footer-link">
-                  WPDeveloper
-                </a>{" "}
-                | Designed with <i className="fas fa-heart text-danger"></i> for gift lovers
-              </p>
-            </div>
+            </motion.div>
           </div>
         </div>
       </div>

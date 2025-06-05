@@ -1,6 +1,6 @@
 /* Newsletter Section */
 .newsletter-section {
-  background: linear-gradient(135deg, #150e4b 0%, #2d1b69 100%);
+  background:linear-gradient(to right top, #292929, #2d2d2d, #323232, #363636, #3b3b3b);
   padding: 60px 0;
   position: relative;
   overflow: hidden;
@@ -19,6 +19,8 @@
 
 .newsletter-card {
   background: rgba(255, 255, 255, 0.1);
+
+
   backdrop-filter: blur(10px);
   border-radius: 20px;
   padding: 40px;
@@ -65,14 +67,15 @@
   padding: 15px 30px;
   font-weight: 600;
   border-radius: 0 50px 50px 0 !important;
-  background: linear-gradient(90deg, #fa2947 0%, #ed6c71 100%);
+  background: linear-gradient(to right top, #292929, #2d2d2d, #323232, #363636, #3b3b3b);
   border: none;
   transition: all 0.3s ease;
 }
 
 .newsletter-btn:hover {
-  background: linear-gradient(90deg, #e91e3a 0%, #dc5a5f 100%);
+  background:linear-gradient(to right top, #3a3a3a, #3f3f3f, #444444, #484848, #4d4d4d);
   transform: translateY(-2px);
+  border:none;
 }
 
 /* Main Footer */
@@ -113,7 +116,7 @@
   left: 0;
   width: 40px;
   height: 3px;
-  background: linear-gradient(90deg, #fa2947 0%, #ed6c71 100%);
+  background: linear-gradient(to right top, #292929, #2d2d2d, #323232, #363636, #3b3b3b);
   border-radius: 2px;
 }
 
@@ -140,7 +143,7 @@
   content: "→";
   position: absolute;
   left: 0;
-  color: #fa2947;
+  color: linear-gradient(to right top, #292929, #2d2d2d, #323232, #363636, #3b3b3b);
   opacity: 0;
   transform: translateX(-10px);
   transition: all 0.3s ease;
