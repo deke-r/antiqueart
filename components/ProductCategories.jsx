@@ -2,62 +2,62 @@ export default function ProductCategories() {
   const categories = [
     {
       title: "Sofas",
-      image: "/img/sofas.jpg",
+      image: "/img/comfortable-pillow-sofa_74190-10005.webp",
       description: "Stylish and cozy sofas perfect for any living room setup.",
     },
     {
       title: "Sofa Cum Bed",
-      image: "/img/sofa-cum-bed.jpg",
+      image: "/img/view-sofa-interior-design-decor_23-2151772758.webp",
       description: "Dual-purpose sofa cum beds for modern, compact spaces.",
     },
     {
       title: "Beds",
-      image: "/img/beds.jpg",
+      image: "/img/japanese-woman-turning-air-purifier_53876-132373.webp",
       description: "Comfortable and elegant beds for a restful night's sleep.",
     },
     {
       title: "Dining",
-      image: "/img/dining.jpg",
+      image: "/img/creative-fengshui-practice-dining-room-arrangement_23-2149135746.webp",
       description: "Dining sets to make every meal a family occasion.",
     },
     {
       title: "Wardrobes",
-      image: "/img/wardrobes.jpg",
+      image: "/img/3d-rendering-minimal-scandinavian-wood-walk-closet-with-wardrobe_105762-2306.webp",
       description: "Spacious wardrobes designed for style and utility.",
     },
     {
       title: "Shoe Racks",
-      image: "/img/shoe-racks.jpg",
+      image: "/img/view-shoe-rack-stacking-pair-footwear_23-2150991546.webp",
       description: "Organize your footwear neatly with stylish shoe racks.",
     },
     {
       title: "Bookshelves",
-      image: "/img/bookshelves.jpg",
+      image: "/img/background-zoom-calls-with-bookcase_23-2149684453.webp",
       description: "Chic bookshelves to display and store your collection.",
     },
     {
       title: "TV Units",
-      image: "/img/tv-units.jpg",
+      image: "/img/minimalistic-interior_1284-13504.webp",
       description: "Modern TV units that blend aesthetics with storage.",
     },
     {
       title: "Recliners",
-      image: "/img/recliners.jpg",
+      image: "/img/wingback-couch-with-part-set-foot_1203-347.webp",
       description: "Ultimate comfort with our range of stylish recliners.",
     },
     {
       title: "Seating",
-      image: "/img/seating.jpg",
+      image: "/img/empty-airport-terminal-waiting-area_1339-7392.webp",
       description: "Ottomans, pouffes, and more for flexible seating options.",
     },
     {
       title: "Coffee Tables",
-      image: "/img/coffee-tables.jpg",
+      image: "/img/side-view-cup-coffee-small-round-table-horizontal_176474-2487.webp",
       description: "Functional and elegant coffee tables for your space.",
     },
     {
       title: "Study",
-      image: "/img/study.jpg",
+      image: "/img/business-owner-working-home-office-packaging_1150-15830.webp",
       description: "Study desks and chairs designed for focus and comfort.",
     }
 

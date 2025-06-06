@@ -1,0 +1,263 @@
+/* Auth Modal Styles */
+.auth-modal {
+  border: none;
+  border-radius: 8px;
+  overflow: hidden;
+  max-width: 800px;
+  min-height: 500px;
+}
+
+.modal-backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* Close Button */
+.btn-close-custom {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  color: #666;
+  font-size: 14px;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.btn-close-custom:hover {
+  color: #333;
+}
+
+
+.banner-img {
+  max-width: 100%;
+  height: auto;
+
+}
+
+/* Content Section */
+.content-section {
+  background: white;
+  padding: 2rem;
+}
+
+/* Typography */
+.login-message {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.login-subheader,
+.signup-subheader {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 0.5rem;
+}
+
+.form-heading {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 1.5rem;
+}
+
+.social-head {
+  font-size: 16px;
+  font-weight: 500;
+  color: #333;
+}
+
+/* Form Inputs */
+.auth-input {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 12px 15px;
+  font-size: 14px;
+  transition: border-color 0.3s ease;
+}
+
+.auth-input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.auth-input::placeholder {
+  color: #999;
+}
+
+/* Buttons */
+.auth-btn {
+  background-color: #007bff;
+  border: none;
+  border-radius: 4px;
+  padding: 12px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.auth-btn:hover {
+  background-color: #0056b3;
+}
+
+/* Social Buttons */
+.btn-facebook {
+  background-color: #4267b2;
+  border: none;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 4px;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-facebook:hover {
+  background-color: #365899;
+  color: white;
+}
+
+.btn-google {
+  background-color: #db4437;
+  border: none;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 4px;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-google:hover {
+  background-color: #c23321;
+  color: white;
+}
+
+.social-icon {
+  font-size: 16px;
+}
+
+/* Links */
+.link-color {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.link-color:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}
+
+/* Password Actions */
+.password-actions {
+  margin-top: 8px;
+  text-align: right;
+}
+
+.forgot-link {
+  font-size: 12px;
+  color: #007bff;
+  text-decoration: none;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 12px;
+  color: #007bff;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Terms Text */
+.terms-text {
+  font-size: 10px;
+  color: #666;
+  line-height: 1.4;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .modal-dialog {
+    margin: 1rem;
+    max-width: calc(100% - 2rem);
+  }
+
+  .auth-modal {
+    min-height: auto;
+  }
+
+  .banner-section {
+    display: none;
+  }
+
+  .content-section {
+    padding: 1.5rem;
+  }
+
+  .btn-close-custom {
+    display: none;
+  }
+}
+
+@media (max-width: 576px) {
+  .content-section {
+    padding: 1rem;
+  }
+
+  .login-message {
+    font-size: 16px;
+  }
+
+  .form-heading {
+    font-size: 14px;
+  }
+}
+
+/* Animation */
+.modal.show {
+  animation: modalFadeIn 0.3s ease-out;
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Focus States */
+.auth-input:focus,
+.auth-btn:focus,
+.btn-facebook:focus,
+.btn-google:focus {
+  outline: none;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* Loading States */
+.auth-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Error States */
+.auth-input.is-invalid {
+  border-color: #dc3545;
+}
+
+.auth-input.is-invalid:focus {
+  border-color: #dc3545;
+  box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+}

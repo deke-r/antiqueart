@@ -208,8 +208,9 @@ a {
 
 /* Box Shadow */
 .box_sdw {
-  box-shadow: 0px 20px 50px 0px rgba(250, 41, 71, 0.3) !important;
+  box-shadow: 0px 0px 30px 0px rgba(255, 255, 255, 0.6) !important;
 }
+
 
 /* Hero Section */
 .hero-section {
@@ -218,4 +219,8 @@ a {
   background-repeat: no-repeat;
   background-size: cover;
   height: 120vh;
+}
+
+.pointer{
+  cursor:  pointer !important;
 }
