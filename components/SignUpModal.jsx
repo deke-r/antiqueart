@@ -1,5 +1,8 @@
-import '../styles/signupmodal.css'
+import '../styles/signupmodal.css';
+import {useState} from 'react';
 export default function SignUpModal({toggleForm}) {
+
+    const [showPassowrd,setShowPassword]=useState(false)
     return (
         <>
            <div className="row g-0 h-100">
@@ -57,11 +60,20 @@ export default function SignUpModal({toggleForm}) {
 
                           <div className="mb-3 position-relative">
                             <input
-                              type='password'
+                              type={showPassowrd ? 'text':'password'}
                               className="form-control auth-input rounded-0 shadow-none"
                               placeholder="Password"
                               required
                             />
+                            <span className='link-color p-0 text-decoration-none pointer fw-semibold f_11'
+                            style={{position:'absolute',top:15,right:10}}
+                            onClick={() => setShowPassword(!showPassowrd)}
+                            >
+                                {
+                                    showPassowrd ?  'Show Passoword' : 'Hide Passowrd'
+                                }
+                                
+                               </span>
                           </div>
 
                           <button type="submit" className="btn rounded-0 btn-primary w-100 auth-btn">
