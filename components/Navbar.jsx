@@ -1,8 +1,9 @@
 "use client";
 import Link from "next/link";
 import "../styles/navbar.css";
-
+import { useAuth } from '../Context/AuthContext';
 export default function Navbar() {
+    const { isLoggedIn, logout } = useAuth();
   return (
     <nav className="navbar navbar-expand-lg bg-dark fixed-top">
       <div className="container">

@@ -8,21 +8,21 @@ import TawkToWidget from '@/components/TawkToWidget';
 import Navbar from '@/components/Navbar';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import { AuthProvider } from '../Context/AuthContext';
 
 export default function RootLayout({ children }) {
-
   return (
     <html lang="en" suppressHydrationWarning>
       <body className="d-flex flex-column min-vh-100">
-        <TawkToWidget/>
-        <Bootstrap />
-<Header/>
-        <main className="flex-grow-1">
-        
-          {children}
-        </main>
-        <Footer/>
-   
+        <AuthProvider>
+          <TawkToWidget />
+          <Bootstrap />
+          <Header />
+          <main className="flex-grow-1">
+            {children}
+          </main>
+          <Footer />
+        </AuthProvider>
       </body>
     </html>
   );

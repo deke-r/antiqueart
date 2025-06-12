@@ -47,7 +47,7 @@ export default function HowItWorks() {
             >
               <div className=" shadow-sm rounded-4 p-md-5 h-100 hv-crd text-start">
                 <div className="d-flex align-items-center mb-4">
-                  <div className="me-3">{step.icon}</div>
+                  <div className="me-3 text-red">{step.icon}</div>
                   <div className="rounded-circle bg-primary text-white d-flex justify-content-center align-items-center fw-bold" style={{ width: 40, height: 40 }}>
                     {index + 1}
                   </div>

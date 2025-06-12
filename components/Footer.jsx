@@ -63,7 +63,7 @@ export default function Footer() {
               viewport={{ once: true }}
             >
               <div className="footer-widget">
-                <img src="/placeholder.svg?height=51&width=164" alt="Interior Logo" className="footer-logo mb-3" />
+                <img src="/img/image-invert.webp" alt="Interior Logo" className="footer-logo mb-3" />
                 <p className="footer-description">
                   We specialize in crafting modern, elegant furniture and interior solutions that bring comfort and style to your home and workspace.
                 </p>

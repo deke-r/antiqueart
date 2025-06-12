@@ -1,33 +1,89 @@
-"use client"
-import { useState } from "react"
+"use client";
 
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useAuth } from "../../Context/AuthContext";
+import axios from "axios";
 
 export default function ProfilePage() {
-  const [activeTab, setActiveTab] = useState("profile")
-  const [addresses, setAddresses] = useState([
-    {
-      id: 1,
-      type: "Home",
-      name: "John Doe",
-      address: "123 Main Street, Apt 4B",
-      city: "New York",
-      state: "NY",
-      zip: "10001",
-      phone: "+1 234 567 8900",
-    },
-    {
-      id: 2,
-      type: "Office",
-      name: "John Doe",
-      address: "456 Business Ave, Suite 200",
-      city: "New York",
-      state: "NY",
-      zip: "10002",
-      phone: "+1 234 567 8900",
-    },
-  ])
+  const router = useRouter();
+  const { isLoggedIn, user } = useAuth();
 
-  const [showAddressForm, setShowAddressForm] = useState(false)
+  const [activeTab, setActiveTab] = useState("profile");
+  const [addresses, setAddresses] = useState([]);
+  const [showAddressForm, setShowAddressForm] = useState(false);
+
+  const [userProfile, setUserProfile] = useState(null);
+
+  useEffect(() => {
+    if (!isLoggedIn) {
+      router.push("/");
+    }
+  }, [isLoggedIn]);
+
+
+
+
+  useEffect(() => {
+
+    const fetchProfile = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const res = await fetch("/api/user", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (!res.ok) {
+          const text = await res.text();
+          throw new Error(`Error fetching profile: ${res.status} - ${text}`);
+        }
+
+        const data = await res.json();
+        setUserProfile(data);
+      } catch (error) {
+        console.error("Error fetching profile:", error);
+      } finally {
+
+      }
+    };
+
+
+
+
+    fetchProfile()
+
+
+
+  }, [isLoggedIn])
+
+
+
+
+
+  // useEffect(() => {
+  //   const fetchAddresses = async () => {
+  //     try {
+  //       const token = localStorage.getItem("token");
+  //       const res = await fetch("/api/addresses", {
+  //         headers: {
+  //           Authorization: `Bearer ${token}`,
+  //         },
+  //       });
+  //       const data = await res.json();
+  //       setAddresses(data || []);
+  //     } catch (error) {
+  //       console.error("Error fetching addresses", error);
+  //     }
+  //   };
+
+  //   if (isLoggedIn) {
+  //     fetchAddresses();
+  //   }
+  // }, [isLoggedIn]);
+
+  if (!isLoggedIn) return null;
 
   return (
     <div className="min-vh-100">
@@ -36,7 +92,7 @@ export default function ProfilePage() {
           <div className="row">
             {/* Sidebar */}
             <div className="col-lg-3 mb-4">
-              <div className="bg-white rounded-3 shadow-sm p-3">
+              <div className="bg-white rounded-0 shadow-sm p-3">
                 <div className="text-center mb-3">
                   <img
                     src="/placeholder.svg?height=80&width=80"
@@ -44,8 +100,8 @@ export default function ProfilePage() {
                     className="rounded-circle mb-2"
                     style={{ width: "80px", height: "80px" }}
                   />
-                  <h6 className="mb-0">John Doe</h6>
-                  <small className="text-muted">john.doe@example.com</small>
+                  <h6 className="mb-0">{user?.name || "User"}</h6>
+                  <small className="text-muted">{user?.email}</small>
                 </div>
                 <nav className="nav flex-column">
                   <button
@@ -79,32 +135,30 @@ export default function ProfilePage() {
             {/* Main Content */}
             <div className="col-lg-9">
               {activeTab === "profile" && (
-                <div className="bg-white rounded-3 shadow-sm p-4">
+                <div className="bg-white rounded-0 shadow-sm p-4">
                   <h5 className="fw-bold mb-4">Profile Details</h5>
                   <form>
                     <div className="row">
-                      <div className="col-md-6 mb-3">
-                        <label className="form-label">First Name</label>
-                        <input type="text" className="form-control" defaultValue="John" />
+                      <div className="col-md-12 mb-3">
+                        <input
+                          type="text"
+                          className="form-control rounded-0 shadow-none auth-input"
+                          placeholder="Name"
+                          value={userProfile ? userProfile.name : ""}
+                          onChange={(e) => e.target.value}
+                        />
+
                       </div>
-                      <div className="col-md-6 mb-3">
-                        <label className="form-label">Last Name</label>
-                        <input type="text" className="form-control" defaultValue="Doe" />
-                      </div>
                     </div>
                     <div className="mb-3">
-                      <label className="form-label">Email</label>
-                      <input type="email" className="form-control" defaultValue="john.doe@example.com" />
+
+                      <input type="email" className="form-control rounded-0 shadow-none auth-input" placeholder="Email" value={userProfile ? userProfile.email : ''} onChange={(e) => e.target.value} />
                     </div>
                     <div className="mb-3">
-                      <label className="form-label">Phone</label>
-                      <input type="tel" className="form-control" defaultValue="+1 234 567 8900" />
+                      <input type="tel" className="form-control rounded-0 shadow-none auth-input" placeholder="Phone" value={userProfile ? userProfile.phone : ''}
+                        onChange={(e) => e.target.value} />
                     </div>
-                    <div className="mb-3">
-                      <label className="form-label">Date of Birth</label>
-                      <input type="date" className="form-control" />
-                    </div>
-                    <button type="submit" className="btn btn-primary rounded-pill px-4">
+                    <button type="submit" className="btn btn-primary rounded-0 w-100 border-0 py-2 px-4">
                       Update Profile
                     </button>
                   </form>
@@ -186,24 +240,14 @@ export default function ProfilePage() {
                                 Actions
                               </button>
                               <ul className="dropdown-menu">
-                                <li>
-                                  <a className="dropdown-item" href="#">
-                                    Edit
-                                  </a>
-                                </li>
-                                <li>
-                                  <a className="dropdown-item text-danger" href="#">
-                                    Delete
-                                  </a>
-                                </li>
+                                <li><a className="dropdown-item" href="#">Edit</a></li>
+                                <li><a className="dropdown-item text-danger" href="#">Delete</a></li>
                               </ul>
                             </div>
                           </div>
                           <h6 className="fw-bold">{address.name}</h6>
                           <p className="mb-1">{address.address}</p>
-                          <p className="mb-1">
-                            {address.city}, {address.state} {address.zip}
-                          </p>
+                          <p className="mb-1">{address.city}, {address.state} {address.zip}</p>
                           <p className="mb-0 text-muted">{address.phone}</p>
                         </div>
                       </div>
@@ -230,24 +274,16 @@ export default function ProfilePage() {
                         <tr>
                           <td>#12345</td>
                           <td>June 1, 2024</td>
-                          <td>
-                            <span className="badge bg-success">Delivered</span>
-                          </td>
+                          <td><span className="badge bg-success">Delivered</span></td>
                           <td>$54.00</td>
-                          <td>
-                            <button className="btn btn-sm btn-outline-primary">View Details</button>
-                          </td>
+                          <td><button className="btn btn-sm btn-outline-primary">View Details</button></td>
                         </tr>
                         <tr>
                           <td>#12344</td>
                           <td>May 28, 2024</td>
-                          <td>
-                            <span className="badge bg-warning">Processing</span>
-                          </td>
+                          <td><span className="badge bg-warning">Processing</span></td>
                           <td>$81.00</td>
-                          <td>
-                            <button className="btn btn-sm btn-outline-primary">View Details</button>
-                          </td>
+                          <td><button className="btn btn-sm btn-outline-primary">View Details</button></td>
                         </tr>
                       </tbody>
                     </table>
@@ -301,7 +337,6 @@ export default function ProfilePage() {
           </div>
         </div>
       </main>
-  
     </div>
-  )
+  );
 }
