@@ -4,10 +4,14 @@ import { useForm } from 'react-hook-form';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useAuth } from '../Context/AuthContext';
+import { useRouter } from 'next/navigation';
+
 export default function LogInModal({ toggleForm }) {
   const [showPassword, setShowPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { login } = useAuth();
+  const router = useRouter();
+
 
   const {
     register,
@@ -26,17 +30,24 @@ export default function LogInModal({ toggleForm }) {
       });
 
       const result = await res.json();
+      console.log('result: ', result);
 
 
-if (res.status === 200) {
-  toast.success('Login successful!');
-  login(result.user.token);
+      if (res.status === 200) {
+        toast.success('Login successful!');
+        login(result.user.token);
 
-  setTimeout(() => {
-    document.querySelector('[data-bs-dismiss="modal"]')?.click(); 
-    router.push('/'); 
-  }, 1000);
-}
+        setTimeout(() => {
+          document.querySelector('[data-bs-dismiss="modal"]')?.click();
+          if (result.user.role === 'user') {
+            router.push('/');
+          } else if (result.user.role === 'admin') {
+            router.push('/admin/dashboard')
+          }
+        }, 1000);
+      }else{
+        toast.error(result.message)
+      }
 
     } catch (error) {
       toast.error('Something went wrong. Please try again.');
@@ -85,9 +96,8 @@ if (res.status === 200) {
                   <div className="mb-3">
                     <input
                       type="email"
-                      className={`form-control auth-input rounded-0 shadow-none ${
-                        errors.email ? 'is-invalid' : ''
-                      }`}
+                      className={`form-control auth-input rounded-0 shadow-none ${errors.email ? 'is-invalid' : ''
+                        }`}
                       placeholder="Email Address"
                       {...register('email', {
                         required: 'Email is required',
@@ -105,9 +115,8 @@ if (res.status === 200) {
                   <div className="mb-3 position-relative">
                     <input
                       type={showPassword ? 'text' : 'password'}
-                      className={`form-control auth-input rounded-0 shadow-none ${
-                        errors.password ? 'is-invalid' : ''
-                      }`}
+                      className={`form-control auth-input rounded-0 shadow-none ${errors.password ? 'is-invalid' : ''
+                        }`}
                       placeholder="Password"
                       {...register('password', {
                         required: 'Password is required',

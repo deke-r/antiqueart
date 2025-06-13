@@ -15,7 +15,7 @@ export async function POST(req) {
     }
 
     const [users] = await db.execute(
-      'SELECT id, email, password FROM user_accounts WHERE email = ?',
+      'SELECT id, email,role, password FROM user_accounts WHERE email = ?',
       [email]
     );
 
@@ -57,6 +57,7 @@ export async function POST(req) {
     const userData = {
       id: user.id,
       email: user.email,
+      role:user.role,
       lastLogin: loginTime,
       token, 
     };
