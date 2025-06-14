@@ -29,7 +29,15 @@ export default function CategoriesPage() {
   };
 
   const onSubmit = async (data) => {
-    await axios.post("/api/categories", data);
+    const formData = new FormData();
+    formData.append("name", data.name);
+    formData.append("slug", data.slug || "");
+    formData.append("description", data.description || "");
+    if (data.image && data.image[0]) {
+      formData.append("image", data.image[0]);
+    }
+
+    await axios.post("/api/categories", formData);
     reset();
     setShowForm(false);
     fetchCategories();
@@ -81,13 +89,10 @@ export default function CategoriesPage() {
             </h5>
           </div>
           <div className="card-body">
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
               <div className="row mb-3">
                 <div className="col-md-6">
-                  <label
-                    htmlFor="name"
-                    className="form-label f_14 fw-semibold"
-                  >
+                  <label htmlFor="name" className="form-label f_14 fw-semibold">
                     Category Name :
                   </label>
                   <input
@@ -101,16 +106,11 @@ export default function CategoriesPage() {
                     })}
                   />
                   {errors.name && (
-                    <div className="invalid-feedback">
-                      {errors.name.message}
-                    </div>
+                    <div className="invalid-feedback">{errors.name.message}</div>
                   )}
                 </div>
                 <div className="col-md-6">
-                  <label
-                    htmlFor="slug"
-                    className="form-label f_14 fw-semibold"
-                  >
+                  <label htmlFor="slug" className="form-label f_14 fw-semibold">
                     Slug (Optional)
                   </label>
                   <input
@@ -121,18 +121,16 @@ export default function CategoriesPage() {
                     {...register("slug", {
                       pattern: {
                         value: /^[a-z0-9-]+$/,
-                        message:
-                          "Slug must be lowercase letters, numbers, hyphens",
+                        message: "Slug must be lowercase letters, numbers, hyphens",
                       },
                     })}
                   />
                   {errors.slug && (
-                    <div className="invalid-feedback">
-                      {errors.slug.message}
-                    </div>
+                    <div className="invalid-feedback">{errors.slug.message}</div>
                   )}
                 </div>
               </div>
+
               <div className="mb-3">
                 <label
                   htmlFor="description"
@@ -147,6 +145,20 @@ export default function CategoriesPage() {
                   {...register("description")}
                 ></textarea>
               </div>
+
+              <div className="mb-3">
+                <label htmlFor="image" className="form-label f_14 fw-semibold">
+                  Category Image (Optional)
+                </label>
+                <input
+                  type="file"
+                  id="image"
+                  className="form-control rounded-0"
+                  accept="image/*"
+                  {...register("image")}
+                />
+              </div>
+
               <button type="submit" className="btn btn-primary rounded-0">
                 Add Category
               </button>
@@ -166,6 +178,7 @@ export default function CategoriesPage() {
                 <tr>
                   <th className="f_16 fw-semibold">Name</th>
                   <th className="f_16 fw-semibold">Slug</th>
+                  <th className="f_16 fw-semibold">Image</th>
                   <th className="f_16 fw-semibold">Status</th>
                   <th className="f_16 fw-semibold">Actions</th>
                 </tr>
@@ -175,6 +188,19 @@ export default function CategoriesPage() {
                   <tr key={cat.id} className="f_13 fw-semibold">
                     <td>{cat.name}</td>
                     <td>{cat.slug}</td>
+                    <td>
+                      {cat.image ? (
+                        <img
+                          src={`/uploads/categories/${cat.image}`}
+                          alt={cat.name}
+                          width="60"
+                          height="40"
+                          style={{ objectFit: "cover" }}
+                        />
+                      ) : (
+                        <span className="text-muted">No Image</span>
+                      )}
+                    </td>
                     <td>
                       <div className="form-check form-switch">
                         <input
@@ -200,7 +226,7 @@ export default function CategoriesPage() {
                 ))}
                 {categories.length === 0 && (
                   <tr>
-                    <td colSpan={4} className="text-center text-muted">
+                    <td colSpan={5} className="text-center text-muted">
                       No categories found
                     </td>
                   </tr>
@@ -213,55 +239,51 @@ export default function CategoriesPage() {
 
       {/* Simple Modal */}
       {isModalOpen && (
-        <>
-          <div
-            className="modal fade show d-block"
-            tabIndex="-1"
-            style={{ backgroundColor: "rgba(0,0,0,0.5)" }}
-            role="dialog"
-          >
-            <div className="modal-dialog modal-dialog-centered" role="document">
-              <div className="modal-content rounded-0">
-                <div className="modal-header">
-                  <h5 className="modal-title f_14 fw-semibold">
-                    Confirm Deletion
-                  </h5>
-                  <button
-                    type="button"
-                    className="btn-close"
-                    onClick={() => setIsModalOpen(false)}
-                  ></button>
-                </div>
-                <div className="modal-body">
-                  Are you sure you want to delete this category?
-                </div>
-                <div className="modal-footer">
-                  <button
-                    type="button"
-                    className="btn btn-secondary rounded-0"
-                    onClick={() => setIsModalOpen(false)}
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    type="button"
-                    className="btn btn-danger rounded-0"
-                    onClick={handleConfirmedDelete}
-                  >
-                    {isDeleting && (
-                      <span
-                        className="spinner-border spinner-border-sm me-2"
-                        role="status"
-                        aria-hidden="true"
-                      ></span>
-                    )}
-                    Delete
-                  </button>
-                </div>
+        <div
+          className="modal fade show d-block"
+          tabIndex="-1"
+          style={{ backgroundColor: "rgba(0,0,0,0.5)" }}
+          role="dialog"
+        >
+          <div className="modal-dialog modal-dialog-centered" role="document">
+            <div className="modal-content rounded-0">
+              <div className="modal-header">
+                <h5 className="modal-title f_14 fw-semibold">Confirm Deletion</h5>
+                <button
+                  type="button"
+                  className="btn-close"
+                  onClick={() => setIsModalOpen(false)}
+                ></button>
+              </div>
+              <div className="modal-body">
+                Are you sure you want to delete this category?
+              </div>
+              <div className="modal-footer">
+                <button
+                  type="button"
+                  className="btn btn-secondary rounded-0"
+                  onClick={() => setIsModalOpen(false)}
+                >
+                  Cancel
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-danger rounded-0"
+                  onClick={handleConfirmedDelete}
+                >
+                  {isDeleting && (
+                    <span
+                      className="spinner-border spinner-border-sm me-2"
+                      role="status"
+                      aria-hidden="true"
+                    ></span>
+                  )}
+                  Delete
+                </button>
               </div>
             </div>
           </div>
-        </>
+        </div>
       )}
     </div>
   );

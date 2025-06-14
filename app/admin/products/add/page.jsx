@@ -3,11 +3,14 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Upload, Trash2 } from "lucide-react";
+import axios from "axios";
 
 export default function ProductsPage() {
   const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [showForm, setShowForm] = useState(false);
-  const [images, setImages] = useState([]);
+  const [coverImage, setCoverImage] = useState(null);
+  const [bannerImages, setBannerImages] = useState([]);
   const [selectedId, setSelectedId] = useState(null);
   const [isDeleting, setIsDeleting] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -21,66 +24,72 @@ export default function ProductsPage() {
 
   useEffect(() => {
     fetchProducts();
+    fetchCategories();
   }, []);
 
   const fetchProducts = async () => {
-    // Fetch from API
-    // const res = await axios.get("/api/products");
-    // setProducts(res.data);
-    // For now, dummy data:
-    setProducts([
-      {
-        id: 1,
-        name: "iPhone 15",
-        sku: "IPH15-256GB",
-        price: 999.99,
-        active: true,
-      },
-      {
-        id: 2,
-        name: "Bluetooth Speaker",
-        sku: "BT-SPK-001",
-        price: 59.99,
-        active: false,
-      },
-    ]);
+    try {
+      const res = await axios.get("/api/products?withBanners=true");
+      setProducts(res.data);
+    } catch (err) {
+      console.error("Failed to fetch products", err);
+    }
+  };
+
+  const fetchCategories = async () => {
+    try {
+      const res = await axios.get("/api/categories");
+      setCategories(res.data);
+    } catch (err) {
+      console.error("Failed to fetch categories", err);
+    }
   };
 
   const onSubmit = async (data) => {
-    const productData = {
-      ...data,
-      images,
-    };
+    const formData = new FormData();
+    formData.append("name", data.name);
+    formData.append("sku", data.sku);
+    formData.append("price", data.price);
+    formData.append("stock", data.stock);
+    formData.append("categoryId", data.categoryId);
+    if (coverImage) formData.append("cover_image", coverImage);
+    bannerImages.forEach((img) => formData.append("banners", img));
 
-    console.log("Product data to submit:", productData);
-
-    // await axios.post("/api/products", productData);
-    reset();
-    setImages([]);
-    setShowForm(false);
-    fetchProducts();
+    try {
+      await axios.post("/api/products", formData);
+      reset();
+      setCoverImage(null);
+      setBannerImages([]);
+      setShowForm(false);
+      fetchProducts();
+    } catch (err) {
+      console.error("Failed to add product", err);
+    }
   };
 
-  const handleImageChange = (e) => {
+  const handleCoverImageChange = (e) => {
+    const file = e.target.files[0];
+    setCoverImage(file);
+  };
+
+  const handleBannerImagesChange = (e) => {
     const files = Array.from(e.target.files);
-    const newImages = files.map((file) => ({
-      file,
-      preview: URL.createObjectURL(file),
-    }));
-    setImages([...images, ...newImages]);
+    setBannerImages([...bannerImages, ...files]);
   };
 
-  const removeImage = (index) => {
-    const updatedImages = [...images];
-    URL.revokeObjectURL(updatedImages[index].preview);
+  const removeBannerImage = (index) => {
+    const updatedImages = [...bannerImages];
     updatedImages.splice(index, 1);
-    setImages(updatedImages);
+    setBannerImages(updatedImages);
   };
 
   const toggleActive = async (id) => {
-    const current = products.find((p) => p.id === id);
-    // await axios.patch(`/api/products/${id}`, { active: !current.active });
-    fetchProducts();
+    try {
+      await axios.patch(`/api/products/${id}`);
+      fetchProducts();
+    } catch (err) {
+      console.error("Failed to toggle active status", err);
+    }
   };
 
   const confirmDelete = (id) => {
@@ -90,11 +99,16 @@ export default function ProductsPage() {
 
   const handleConfirmedDelete = async () => {
     setIsDeleting(true);
-    // await axios.delete(`/api/products/${selectedId}`);
-    setIsDeleting(false);
-    setShowModal(false);
-    setSelectedId(null);
-    fetchProducts();
+    try {
+      await axios.delete(`/api/products/${selectedId}`);
+      setIsDeleting(false);
+      setShowModal(false);
+      setSelectedId(null);
+      fetchProducts();
+    } catch (err) {
+      console.error("Failed to delete product", err);
+      setIsDeleting(false);
+    }
   };
 
   return (
@@ -105,7 +119,8 @@ export default function ProductsPage() {
           onClick={() => {
             setShowForm(!showForm);
             reset();
-            setImages([]);
+            setCoverImage(null);
+            setBannerImages([]);
           }}
         >
           {showForm ? "Cancel" : "Add New Product"}
@@ -157,21 +172,40 @@ export default function ProductsPage() {
                   />
                 </div>
               </div>
+              <div className="row mb-3">
+                <div className="col-md-6">
+                  <label className="form-label">Category</label>
+                  <select
+                    className="form-select shadow-none rounded-0"
+                    {...register("categoryId", { required: "Category is required" })}
+                  >
+                    <option value="">Select Category</option>
+                    {categories.map((cat) => (
+                      <option key={cat.id} value={cat.id}>{cat.name}</option>
+                    ))}
+                  </select>
+                  {errors.categoryId && <div className="invalid-feedback d-block">{errors.categoryId.message}</div>}
+                </div>
+              </div>
               <div className="mb-3">
-                <label className="form-label">Images</label>
-                <input type="file" className="form-control shadow-none rounded-0" multiple onChange={handleImageChange} />
+                <label className="form-label">Cover Image</label>
+                <input type="file" className="form-control shadow-none rounded-0" onChange={handleCoverImageChange} />
+              </div>
+              <div className="mb-3">
+                <label className="form-label">Banner Images</label>
+                <input type="file" className="form-control shadow-none rounded-0" multiple onChange={handleBannerImagesChange} />
                 <div className="d-flex gap-2 mt-2 flex-wrap">
-                  {images.map((img, idx) => (
+                  {bannerImages.map((img, idx) => (
                     <div key={idx} className="position-relative">
                       <img
-                        src={img.preview}
+                        src={URL.createObjectURL(img)}
                         className="img-thumbnail"
                         style={{ width: 100, height: 100, objectFit: "cover" }}
                       />
                       <button
                         type="button"
                         className="btn btn-sm btn-danger position-absolute top-0 end-0"
-                        onClick={() => removeImage(idx)}
+                        onClick={() => removeBannerImage(idx)}
                       >
                         &times;
                       </button>
@@ -179,7 +213,6 @@ export default function ProductsPage() {
                   ))}
                 </div>
               </div>
-
               <button type="submit" className="btn border-0 btn-primary rounded-0">Add Product</button>
             </form>
           </div>
@@ -198,6 +231,8 @@ export default function ProductsPage() {
                   <th>Name</th>
                   <th>SKU</th>
                   <th>Price</th>
+                  <th>Cover</th>
+                  <th>Banners</th>
                   <th>Status</th>
                   <th>Actions</th>
                 </tr>
@@ -208,7 +243,28 @@ export default function ProductsPage() {
                     <tr key={prod.id}>
                       <td>{prod.name}</td>
                       <td>{prod.sku}</td>
-                      <td>${prod.price}</td>
+                      <td>₹{prod.price}</td>
+                      <td>
+                        {prod.cover_image && (
+                          <img
+                            src={prod.cover_image}
+                            style={{ width: 60, height: 60, objectFit: "cover" }}
+                            className="rounded"
+                          />
+                        )}
+                      </td>
+                      <td>
+                        <div className="d-flex flex-wrap gap-2">
+                          {(prod.banners || []).map((b, i) => (
+                            <img
+                              key={i}
+                              src={b.image_path}
+                              style={{ width: 50, height: 50, objectFit: "cover" }}
+                              className="rounded"
+                            />
+                          ))}
+                        </div>
+                      </td>
                       <td>
                         <div className="form-check form-switch">
                           <input
@@ -229,7 +285,7 @@ export default function ProductsPage() {
                   ))
                 ) : (
                   <tr>
-                    <td colSpan={5} className="text-center text-muted">No products found</td>
+                    <td colSpan={7} className="text-center text-muted">No products found</td>
                   </tr>
                 )}
               </tbody>
@@ -238,7 +294,6 @@ export default function ProductsPage() {
         </div>
       </div>
 
-      {/* Delete Modal */}
       {showModal && (
         <div className="modal-backdrop fade show" style={{ backgroundColor: "#00000088", position: "fixed", inset: 0 }}>
           <div className="d-flex justify-content-center align-items-center h-100">

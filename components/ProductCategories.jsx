@@ -1,67 +1,19 @@
-export default function ProductCategories() {
-  const categories = [
-    {
-      title: "Sofas",
-      image: "/img/comfortable-pillow-sofa_74190-10005.webp",
-      description: "Stylish and cozy sofas perfect for any living room setup.",
-    },
-    {
-      title: "Sofa Cum Bed",
-      image: "/img/view-sofa-interior-design-decor_23-2151772758.webp",
-      description: "Dual-purpose sofa cum beds for modern, compact spaces.",
-    },
-    {
-      title: "Beds",
-      image: "/img/japanese-woman-turning-air-purifier_53876-132373.webp",
-      description: "Comfortable and elegant beds for a restful night's sleep.",
-    },
-    {
-      title: "Dining",
-      image: "/img/creative-fengshui-practice-dining-room-arrangement_23-2149135746.webp",
-      description: "Dining sets to make every meal a family occasion.",
-    },
-    {
-      title: "Wardrobes",
-      image: "/img/3d-rendering-minimal-scandinavian-wood-walk-closet-with-wardrobe_105762-2306.webp",
-      description: "Spacious wardrobes designed for style and utility.",
-    },
-    {
-      title: "Shoe Racks",
-      image: "/img/view-shoe-rack-stacking-pair-footwear_23-2150991546.webp",
-      description: "Organize your footwear neatly with stylish shoe racks.",
-    },
-    {
-      title: "Bookshelves",
-      image: "/img/background-zoom-calls-with-bookcase_23-2149684453.webp",
-      description: "Chic bookshelves to display and store your collection.",
-    },
-    {
-      title: "TV Units",
-      image: "/img/minimalistic-interior_1284-13504.webp",
-      description: "Modern TV units that blend aesthetics with storage.",
-    },
-    {
-      title: "Recliners",
-      image: "/img/wingback-couch-with-part-set-foot_1203-347.webp",
-      description: "Ultimate comfort with our range of stylish recliners.",
-    },
-    {
-      title: "Seating",
-      image: "/img/empty-airport-terminal-waiting-area_1339-7392.webp",
-      description: "Ottomans, pouffes, and more for flexible seating options.",
-    },
-    {
-      title: "Coffee Tables",
-      image: "/img/side-view-cup-coffee-small-round-table-horizontal_176474-2487.webp",
-      description: "Functional and elegant coffee tables for your space.",
-    },
-    {
-      title: "Study",
-      image: "/img/business-owner-working-home-office-packaging_1150-15830.webp",
-      description: "Study desks and chairs designed for focus and comfort.",
-    }
+"use client";
+import { useEffect, useState } from "react";
 
-  ];
+export default function ProductCategories() {
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    fetch("/api/categories/userPage")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success) {
+          setCategories(data.data);
+        }
+      })
+      .catch((err) => console.error("Failed to fetch categories:", err));
+  }, []);
 
   return (
     <section className="py-5" style={{ backgroundColor: "#EEF1F6" }}>
@@ -72,8 +24,8 @@ export default function ProductCategories() {
             <div key={index} className="col-lg-3 col-md-6">
               <div className="card border-0 h-100 shadow-sm position-relative overflow-hidden rounded-3">
                 <img
-                  src={category.image || "/placeholder.svg"}
-                  alt={category.title}
+                  src={`/uploads/categories/${category.image || "placeholder.svg"}`}
+                  alt={category.name}
                   className="card-img-top"
                   style={{ height: "250px", objectFit: "cover" }}
                 />
@@ -85,7 +37,7 @@ export default function ProductCategories() {
                   }}
                 >
                   <div className="text-white p-3">
-                    <h5 className="card-title mb-1">{category.title}</h5>
+                    <h5 className="card-title mb-1 text-capitalize">{category.name}</h5>
                     <p className="card-text small mb-0">{category.description}</p>
                   </div>
                 </div>
